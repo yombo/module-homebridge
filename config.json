@@ -1,0 +1,38 @@
+{
+    "bridge": {
+        "name": "Yombo Homebridge",
+        "username": "25:CB:D6:9D:AB:58",
+        "port": 51826,
+        "pin": "856-11-442"
+    },
+    "description": "Basic configuration for use with Yombo gateways.",
+    "platforms": [
+        {
+            "platform": "Yombo",
+            "name": "Yombo",
+            "host": "http://localhost:8080",
+            "apiauth": "N1xatJhijaiklfe6eZloFPL06OmmD2eICU1QHrxba9krLpBXH7vsZ",
+            "supported_types": [
+                "automation",
+                "binary_sensor",
+                "climate",
+                "cover",
+                "device_tracker",
+                "fan",
+                "group",
+                "input_boolean",
+                "light",
+                "lock",
+                "media_player",
+                "remote",
+                "scene",
+                "script",
+                "sensor",
+                "switch",
+                "vacuum"
+            ],
+            "logging": true,
+            "verify_ssl": true
+        }
+    ]
+}

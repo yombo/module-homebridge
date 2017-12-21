@@ -1,0 +1,70 @@
+{% extends "lib/webinterface/fragments/layout.tpl" %}
+{% import "lib/webinterface/fragments/macros.tpl" as macros%}
+{% block head_css %}
+{% include 'lib/webinterface/fragments/select_css.tpl' %}
+{% endblock %}
+
+{% block content %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Restart Homebridge
+                    </h1>
+                    <p></p>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        <strong>Restart the homebridge service.</strong>
+                    </p>
+                    <p>
+                        <form method="post" id="confirmation">
+                            <a class="btn btn-md btn-success" href="/modules_settings/homebridge/index">Cancel (Do not reset)</a>
+                            <button type="submit" class="btn btn-danger">Restart Homebridge</button>
+                        </form>
+                    </p>
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+
+{% endblock %}
+
+{% block body_bottom_js %}{% include 'lib/webinterface/fragments/jquery_validate_js.tpl' %}{% endblock %}
+
+{% block body_bottom %}
+    <!-- Make the tables pretty -->
+    <script>
+    $.validator.addMethod("customrule", function(value, element, param) {
+  return this.optional(element) || value === param;
+}, "You must enter '{0}'.");
+
+    $('form').validate({
+        rules: {
+            confirm: {
+                customrule: 'rotate',
+                required: true,
+            },
+        },
+        highlight: function(element) {
+            var id_attr = "#" + $( element ).attr("id") + "1";
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            var id_attr = "#" + $( element ).attr("id") + "1";
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+        errorElement: 'span',
+            errorClass: 'input-validation-error',
+            errorPlacement: function(error, element) {
+                if(element.length) {
+                    error.insertAfter(element);
+                } else {
+                error.insertAfter(element);
+                }
+            }
+     });
+    </script>
+{% endblock %}

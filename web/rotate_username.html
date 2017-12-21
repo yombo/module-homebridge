@@ -1,0 +1,91 @@
+{% extends "lib/webinterface/fragments/layout.tpl" %}
+{% import "lib/webinterface/fragments/macros.tpl" as macros%}
+{% block head_css %}
+{% include 'lib/webinterface/fragments/select_css.tpl' %}
+{% endblock %}
+
+{% block content %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Rotate Homebridge Username & Pin
+                    </h1>
+                    <p></p>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                    In some cases, the HomeKit username and pin_code needs to be reset. This page allows you
+                    to quickly reset these, restart HomeBridge, and get a new qr code to scan.
+                        <ul>
+                    <li>
+                        The current HomeBridge username is: <strong>{{homebridge.username}}</strong>
+                    </li>
+                    <li>
+                        The current HomeBridge pin is: <strong>{{homebridge.pin_code}}</strong>
+                    </li>
+                </ul>
+                    </p>
+                    <p>
+                        <form method="post" id="confirmation">
+                        <p><strong>Resetting the HomeKit username & pin is like resetting the username and password.
+                        All iOS devices curently using current information will need to be reset with the new information.
+                        </strong>
+                    </p>
+                    <p>
+                        Type "rotate" to confirm.<br>
+    						<div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="confirm" id="confirm" size="10" placeholder="" value="" autofocus>
+                                </div>
+                            </div>
+                            <br>
+                            <a class="btn btn-md btn-success" href="/modules_settings/homebridge/index">Cancel (Do not reset)</a>
+                            <button type="submit" class="btn btn-danger">Reset username & pin</button>
+                         </form>
+                    </p>
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+
+{% endblock %}
+
+{% block body_bottom_js %}{% include 'lib/webinterface/fragments/jquery_validate_js.tpl' %}{% endblock %}
+
+{% block body_bottom %}
+    <!-- Make the tables pretty -->
+    <script>
+    $.validator.addMethod("customrule", function(value, element, param) {
+  return this.optional(element) || value === param;
+}, "You must enter '{0}'.");
+
+    $('form').validate({
+        rules: {
+            confirm: {
+                customrule: 'rotate',
+                required: true,
+            },
+        },
+        highlight: function(element) {
+            var id_attr = "#" + $( element ).attr("id") + "1";
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            var id_attr = "#" + $( element ).attr("id") + "1";
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+        errorElement: 'span',
+            errorClass: 'input-validation-error',
+            errorPlacement: function(error, element) {
+                if(element.length) {
+                    error.insertAfter(element);
+                } else {
+                error.insertAfter(element);
+                }
+            }
+     });
+    </script>
+{% endblock %}
