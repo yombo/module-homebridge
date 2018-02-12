@@ -8,7 +8,7 @@ Note: If you are using our Raspberry Pi image at https://yg2.in/i_rpi there
 is no need to run the setup_raspberrypi.sh script, this has already been completed
 within the image.
 
-dditional details about this module at: https://yombo.net/modules/homebridge
+Additional details about this module at: https://yombo.net/modules/homebridge
 
 Learn about [Yombo Gateway](https://yombo.net/) or
 [Get started today](https://yg2.in/start)

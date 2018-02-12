@@ -13,12 +13,12 @@ def module_homebridge_routes(webapp):
     :param webapp: A pointer to the webapp, it's used to setup routes.
     :return:
     """
-    with webapp.subroute("/modules_settings") as webapp:
+    with webapp.subroute("/module_settings") as webapp:
 
         def root_breadcrumb(webinterface, request):
             webinterface.add_breadcrumb(request, "/?", "Home")
             webinterface.add_breadcrumb(request, "/modules/index", "Modules")
-            webinterface.add_breadcrumb(request, "/modules_settings/homebridge/index", "Homebridge")
+            webinterface.add_breadcrumb(request, "/module_settings/homebridge/index", "Homebridge")
 
         @webapp.route("/homebridge", methods=['GET'])
         @require_auth()
@@ -44,7 +44,7 @@ def module_homebridge_routes(webapp):
 
             page = webinterface.webapp.templates.get_template('modules/homebridge/web/rotate_username.html')
             root_breadcrumb(webinterface, request)
-            webinterface.add_breadcrumb(request, "/modules_settings/homebridge/rotate_username", "Rotate Username & Pin")
+            webinterface.add_breadcrumb(request, "/module_settings/homebridge/rotate_username", "Rotate Username & Pin")
             return page.render(alerts=webinterface.get_alerts(),
                                homebridge=homebridge,
                                )
@@ -62,7 +62,7 @@ def module_homebridge_routes(webapp):
             if confirm != "rotate":
                 page = webinterface.webapp.templates.get_template('modules/homebridge/web/rotate_username.html')
                 webinterface.add_alert('Must enter "rotate" in the confirmation box.', 'warning')
-                webinterface.add_breadcrumb(request, "/modules_settings/homebridge/rotate_username",
+                webinterface.add_breadcrumb(request, "/module_settings/homebridge/rotate_username",
                                             "Rotate Username & Pin")
                 return page.render(alerts=webinterface.get_alerts(),
                                    homebridge=homebridge,
@@ -74,7 +74,7 @@ def module_homebridge_routes(webapp):
             else:
                 webinterface.add_alert('Restarting Homebridge.', 'warning')
 
-            return webinterface.redirect(request, '/modules_settings/homebridge/index')
+            return webinterface.redirect(request, '/module_settings/homebridge/index')
 
         @webapp.route("/homebridge/restart_homebridge", methods=['GET'])
         @require_auth()
@@ -83,7 +83,7 @@ def module_homebridge_routes(webapp):
 
             page = webinterface.webapp.templates.get_template('modules/homebridge/web/restart_homebridge.html')
             root_breadcrumb(webinterface, request)
-            webinterface.add_breadcrumb(request, "/modules_settings/homebridge/restart_homebridge", "Restart Homebridge")
+            webinterface.add_breadcrumb(request, "/module_settings/homebridge/restart_homebridge", "Restart Homebridge")
             return page.render(alerts=webinterface.get_alerts(),
                                homebridge=homebridge,
                                )
@@ -101,4 +101,4 @@ def module_homebridge_routes(webapp):
             else:
                 webinterface.add_alert('Restarting Homebridge.', 'warning')
 
-            return webinterface.redirect(request, '/modules_settings/homebridge/index')
+            return webinterface.redirect(request, '/module_settings/homebridge/index')
